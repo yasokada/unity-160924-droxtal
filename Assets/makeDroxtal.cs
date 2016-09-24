@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 
 /*
  * v0.4 Sep. 25, 2016
+ *   - add mouse click event to duplicate cube
  *   - add [kParticleScale]
  * v0.3 Sep. 25, 2016
  *   - add [kAllocationRange]
