@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 
 /*
+ *   - add [kParticleScale]
  * v0.3 Sep. 25, 2016
  *   - add [kAllocationRange]
  *   - add duplicateParticles()
@@ -42,6 +43,7 @@ public class makeDroxtal : MonoBehaviour {
 	public const int kNumVerticles = 44;
 	public const int kNumParticles = 1024;
 	public const float kAllocationRange = 20f;
+	public const float kParticleScale = 0.5f; // should be <= 1f
 
 	int [] triangle_index = new int[kNumVerticles * kNumParticles * 3]; // 3: vertices of a triangle
 	int [] template_tri_index = new int[] {
@@ -121,6 +123,8 @@ public class makeDroxtal : MonoBehaviour {
 		float phi_rad;
 		float Aone = radius * Mathf.Sin (theta1_rad);
 			
+		Aone = Aone * kParticleScale;
+
 		for (int idx = start; idx < (start + 6); idx++) {
 			phi_rad = phi_deg * Mathf.Deg2Rad;
 			templace_vertices [idx].x = Aone * Mathf.Sin (phi_rad);
@@ -138,6 +142,8 @@ public class makeDroxtal : MonoBehaviour {
 		float phi_deg = 0f;
 		float phi_rad;
 		float Atwo = radius * Mathf.Sin (theta2_rad);
+
+		Atwo = Atwo * kParticleScale;
 
 		for (int idx = start; idx < (start + 6); idx++) {
 			phi_rad = phi_deg * Mathf.Deg2Rad;
@@ -168,8 +174,8 @@ public class makeDroxtal : MonoBehaviour {
 	}
 
 	void Start () {
-		Lone = radius * Mathf.Cos (theta1_rad);
-		Ltwo = radius * Mathf.Cos (theta2_rad);
+		Lone = radius * Mathf.Cos (theta1_rad) * kParticleScale;
+		Ltwo = radius * Mathf.Cos (theta2_rad) * kParticleScale;
 		calcVertices ();
 		duplicateParticles ();
 		// arrayParticles ();	
