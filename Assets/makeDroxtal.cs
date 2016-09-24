@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 
 /*
+ *   - add createMeshedDroxtal()
  *   - add tri_index[]
  * v0.1 Sep. 24, 2016
  *   - add makeMiddles()
@@ -157,7 +158,8 @@ public class makeDroxtal : MonoBehaviour {
 		Lone = radius * Mathf.Cos (theta1_rad);
 		Ltwo = radius * Mathf.Cos (theta2_rad);
 		calcVertices ();
-		arrayParticles ();	
+		// arrayParticles ();	
+		createMeshedDroxtal();
 	}
 
 	void arrayParticles() {
@@ -165,6 +167,29 @@ public class makeDroxtal : MonoBehaviour {
 			GameObject instance = (GameObject)Instantiate (my_obj);	
 			instance.transform.position = vertices [idx];
 		}
+	}
+
+	void createMeshedDroxtal() {
+		MeshFilter mf = GetComponent<MeshFilter> ();
+		Mesh mesh = new Mesh ();
+		mf.mesh = mesh;
+
+		// Normals
+		Vector3[] normals = new Vector3[kNumVerticles];
+		for (int idx = 0; idx < kNumVerticles; idx++) {
+			normals [idx] = -Vector3.forward;
+		}
+
+		// UVs
+		Vector2[] uv = new Vector2[kNumVerticles];
+		for(int idx = 0; idx < kNumVerticles; idx++) {
+			uv[idx] = new Vector2 (0, 0); // not used 
+		}
+
+		mesh.vertices = vertices;
+		mesh.triangles = tri_index;
+		mesh.normals = normals;
+		mesh.uv = uv;
 	}
 	
 	void Update () {
