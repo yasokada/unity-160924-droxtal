@@ -20,9 +20,9 @@ public class makeDroxtal : MonoBehaviour {
 			instance.transform.position = my_obj.transform.position;
 
 			Vector3 pos = new Vector3 ();
-			pos.x = Random.Range (0, 2f);
-			pos.y = Random.Range (0, 2f);
-			pos.z = Random.Range (0, 2f);
+			pos.x = Random.Range (0, 2f) - 1f;
+			pos.y = Random.Range (0, 2f) - 1f;
+			pos.z = Random.Range (0, 2f) - 1f;
 			instance.transform.position = pos;
 		}
 	}
