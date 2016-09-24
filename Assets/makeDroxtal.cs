@@ -3,6 +3,7 @@ using System.Collections;
 
 /*
  * v0.1 Sep. 24, 2016
+ *   - add CameraRotation script on [Main Camera]
  *   - put 20 particles randomly
  */
 
