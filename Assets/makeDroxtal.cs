@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 
 /*
+ *   - rename [vertices] to [templace_vertices]
  * v0.2 Sep. 24, 2016
  *   - fix tri_index[]
  *   - add createMeshedDroxtal()
@@ -102,7 +103,7 @@ public class makeDroxtal : MonoBehaviour {
 
 	float Lone;
 	float Ltwo;
-	Vector3[] vertices = new Vector3[kNumVerticles];
+	Vector3[] templace_vertices = new Vector3[kNumVerticles];
 
 	void makeUpperOrLower(int start, bool withPrime) {
 		float phi_deg = 0f;
@@ -111,13 +112,13 @@ public class makeDroxtal : MonoBehaviour {
 			
 		for (int idx = start; idx < (start + 6); idx++) {
 			phi_rad = phi_deg * Mathf.Deg2Rad;
-			vertices [idx].x = Aone * Mathf.Sin (phi_rad);
+			templace_vertices [idx].x = Aone * Mathf.Sin (phi_rad);
 			if (withPrime) {
-				vertices [idx].y = -Lone;
+				templace_vertices [idx].y = -Lone;
 			} else {
-				vertices [idx].y = Lone;
+				templace_vertices [idx].y = Lone;
 			}
-			vertices [idx].z = Aone * Mathf.Cos (phi_rad);
+			templace_vertices [idx].z = Aone * Mathf.Cos (phi_rad);
 			phi_deg += 60f;
 		}
 	}
@@ -129,13 +130,13 @@ public class makeDroxtal : MonoBehaviour {
 
 		for (int idx = start; idx < (start + 6); idx++) {
 			phi_rad = phi_deg * Mathf.Deg2Rad;
-			vertices [idx].x = Atwo * Mathf.Sin (phi_rad);
+			templace_vertices [idx].x = Atwo * Mathf.Sin (phi_rad);
 			if (withPrime) {
-				vertices [idx].y = Ltwo;
+				templace_vertices [idx].y = Ltwo;
 			} else {
-				vertices [idx].y = -Ltwo;
+				templace_vertices [idx].y = -Ltwo;
 			}
-			vertices [idx].z = Atwo * Mathf.Cos (phi_rad);
+			templace_vertices [idx].z = Atwo * Mathf.Cos (phi_rad);
 			phi_deg += 60f;
 		}
 	}
@@ -143,9 +144,9 @@ public class makeDroxtal : MonoBehaviour {
 	void calcVertices() {
 		// dummy
 		for (int idx = 0; idx < kNumVerticles; idx++) {
-			vertices [idx].x = Random.Range (0, 2f) - 1f;
-			vertices [idx].y = Random.Range (0, 2f) - 1f;
-			vertices [idx].z = Random.Range (0, 2f) - 1f;
+			templace_vertices [idx].x = Random.Range (0, 2f) - 1f;
+			templace_vertices [idx].y = Random.Range (0, 2f) - 1f;
+			templace_vertices [idx].z = Random.Range (0, 2f) - 1f;
 		}
 
 		// make Droxtal
@@ -167,7 +168,7 @@ public class makeDroxtal : MonoBehaviour {
 	void arrayParticles() {
 		for (int idx = 0; idx < kNumVerticles; idx++) {
 			GameObject instance = (GameObject)Instantiate (my_obj);	
-			instance.transform.position = vertices [idx];
+			instance.transform.position = templace_vertices [idx];
 		}
 	}
 
@@ -188,7 +189,7 @@ public class makeDroxtal : MonoBehaviour {
 			uv[idx] = new Vector2 (0, 0); // not used 
 		}
 
-		mesh.vertices = vertices;
+		mesh.vertices = templace_vertices;
 		mesh.triangles = tri_index;
 		mesh.normals = normals;
 		mesh.uv = uv;
