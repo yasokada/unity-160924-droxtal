@@ -40,10 +40,10 @@ public class makeDroxtal : MonoBehaviour {
 	public float theta1_rad = 30f * Mathf.Deg2Rad; // zenith angle 1
 	public float theta2_rad = 60f * Mathf.Deg2Rad; // zenith angle 2
 
-	public const int kNumVerticles = 44;
-	public const int kNumParticles = 1024;
-	public const float kAllocationRange = 20f;
-	public const float kParticleScale = 0.5f; // should be <= 1f
+	public const int kNumVerticles = 44; // number of vertices of one droxtal
+	public const int kNumParticles = 1024; // number of droxtals
+	public const float kAllocationRange = 20f; // x,y,z range in which droxtals are placed
+	public const float kParticleScale = 0.5f; // size of droxtal, should be <= 1f
 
 	int [] triangle_index = new int[kNumVerticles * kNumParticles * 3]; // 3: vertices of a triangle
 	int [] template_tri_index = new int[] {
