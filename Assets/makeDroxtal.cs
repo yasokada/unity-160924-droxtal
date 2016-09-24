@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.ObjectModel;
 
 /*
+ * v0.2 Sep. 24, 2016
+ *   - fix tri_index[]
  *   - add createMeshedDroxtal()
  *   - add tri_index[]
  * v0.1 Sep. 24, 2016
@@ -56,29 +58,23 @@ public class makeDroxtal : MonoBehaviour {
 		3, 2, 9,// DCD' (not CDC')
 		2, 8, 9,// CC'D' (not DC'D')
 		// middle sides ---
-//		6,11,12,// A'F'P
-//		11,17,12,// F'UP
-		0, 0, 0, 0, 0, 0, 
+		6,11,12,// A'F'P
+		11,17,12,// F'UP
 		//
-//		10,11,17,// E'F'U
-//		10,16,17,// E'TU
-		0, 0, 0, 0, 0, 0,
+		11,10,17,// E'F'U
+		10,16,17,// E'TU
 		// 
-//		10,9,16,// E'D'T
-//		9,15,16,// D'ST
-		0, 0, 0, 0, 0, 0,
+		10,9,16,// E'D'T
+		9,15,16,// D'ST
 		//
-//		6,7,12,// A'B'P
-//		7,12,13,// B'PQ
-		0, 0, 0, 0, 0, 0,
+		7,6,12,// A'B'P
+		7,12,13,// B'PQ
 		//
-//		7, 8,13,// B'C'Q
-//		8,14,13,// C'RQ
-		0, 0, 0, 0, 0, 0,
+		8, 7,13,// B'C'Q
+		8,13,14,// C'RQ
 		// 
-//		8, 9,14,// C'D'R
-//		9, 15,14,// D'SR
-		0, 0, 0, 0, 0, 0,
+		9, 8,14,// C'D'R
+		9, 14,15,// D'SR
 		// lower sides ---
 		17,23,18,// UU'P'
 		12,17,18,// UPP'
