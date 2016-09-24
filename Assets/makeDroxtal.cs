@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.ObjectModel;
 
 /*
+ *   - add duplicateParticles()
+ *   - add [triangle_vertices]
+ *   - add [triangle_index]
+ *   - add [kNumParticles]
  *   - rename [tri_index] to [template_tri_index]
  *   - rename [vertices] to [templace_vertices]
  * v0.2 Sep. 24, 2016
@@ -33,8 +37,10 @@ public class makeDroxtal : MonoBehaviour {
 	public float theta1_rad = 30f * Mathf.Deg2Rad; // zenith angle 1
 	public float theta2_rad = 60f * Mathf.Deg2Rad; // zenith angle 2
 
-	public const int kNumVerticles = 24;
+	public const int kNumVerticles = 44; // old:24
+	public const int kNumParticles = 8;
 
+	int [] triangle_index = new int[kNumVerticles * kNumParticles * 3]; // 3: vertices of a triangle
 	int [] template_tri_index = new int[] {
 		// top surface
 		0, 1, 5, // ABF
@@ -104,6 +110,7 @@ public class makeDroxtal : MonoBehaviour {
 
 	float Lone;
 	float Ltwo;
+	Vector3[] triangle_vertices = new Vector3[kNumVerticles * kNumParticles];
 	Vector3[] templace_vertices = new Vector3[kNumVerticles];
 
 	void makeUpperOrLower(int start, bool withPrime) {
@@ -161,6 +168,7 @@ public class makeDroxtal : MonoBehaviour {
 		Lone = radius * Mathf.Cos (theta1_rad);
 		Ltwo = radius * Mathf.Cos (theta2_rad);
 		calcVertices ();
+		duplicateParticles ();
 		// arrayParticles ();	
 		createMeshedDroxtal();
 	}
@@ -172,25 +180,49 @@ public class makeDroxtal : MonoBehaviour {
 		}
 	}
 
+	void duplicateParticles() {
+		int pos = 0;
+		for (int pi = 0; pi < kNumParticles; pi++) { // pi: particle index
+			int shift_idx = pi * kNumVerticles;
+			for (int vi = 0; vi < kNumVerticles * 3; vi++) { // 3: vertices of a triangle
+				triangle_index[pos] = template_tri_index[pos % (kNumVerticles * 3)] + shift_idx;
+				pos++;
+			}
+		}
+		pos = 0;
+		for (int pi = 0; pi < kNumParticles; pi++) { // pi: particle index
+			float shift_x = Random.Range(0,6f) - 3f;
+			float shift_y = Random.Range(0,6f) - 3f;
+			float shift_z = Random.Range(0,6f) - 3f;
+
+			for (int vi = 0; vi < kNumVerticles; vi++) {
+				triangle_vertices [pos].x = templace_vertices [vi].x + shift_x;
+				triangle_vertices [pos].y = templace_vertices [vi].y + shift_y;
+				triangle_vertices [pos].z = templace_vertices [vi].z + shift_z;
+				pos++;
+			}
+		}
+	}
+
 	void createMeshedDroxtal() {
 		MeshFilter mf = GetComponent<MeshFilter> ();
 		Mesh mesh = new Mesh ();
 		mf.mesh = mesh;
 
 		// Normals
-		Vector3[] normals = new Vector3[kNumVerticles];
-		for (int idx = 0; idx < kNumVerticles; idx++) {
+		Vector3[] normals = new Vector3[kNumVerticles * kNumParticles];
+		for (int idx = 0; idx < kNumVerticles * kNumParticles; idx++) {
 			normals [idx] = -Vector3.forward;
 		}
 
 		// UVs
-		Vector2[] uv = new Vector2[kNumVerticles];
-		for(int idx = 0; idx < kNumVerticles; idx++) {
+		Vector2[] uv = new Vector2[kNumVerticles * kNumParticles];
+		for(int idx = 0; idx < kNumVerticles * kNumParticles; idx++) {
 			uv[idx] = new Vector2 (0, 0); // not used 
 		}
 
-		mesh.vertices = templace_vertices;
-		mesh.triangles = template_tri_index;
+		mesh.vertices = triangle_vertices;
+		mesh.triangles = triangle_index;
 		mesh.normals = normals;
 		mesh.uv = uv;
 		mesh.RecalculateNormals ();
