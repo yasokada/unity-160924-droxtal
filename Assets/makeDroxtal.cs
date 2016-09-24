@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 
 /*
+ *   - rename [tri_index] to [template_tri_index]
  *   - rename [vertices] to [templace_vertices]
  * v0.2 Sep. 24, 2016
  *   - fix tri_index[]
@@ -34,7 +35,7 @@ public class makeDroxtal : MonoBehaviour {
 
 	public const int kNumVerticles = 24;
 
-	int [] tri_index = new int[] {
+	int [] template_tri_index = new int[] {
 		// top surface
 		0, 1, 5, // ABF
 		1, 2, 5, // BCF
@@ -157,7 +158,6 @@ public class makeDroxtal : MonoBehaviour {
 	}
 
 	void Start () {
-		Debug.Log (tri_index [0]);
 		Lone = radius * Mathf.Cos (theta1_rad);
 		Ltwo = radius * Mathf.Cos (theta2_rad);
 		calcVertices ();
@@ -190,7 +190,7 @@ public class makeDroxtal : MonoBehaviour {
 		}
 
 		mesh.vertices = templace_vertices;
-		mesh.triangles = tri_index;
+		mesh.triangles = template_tri_index;
 		mesh.normals = normals;
 		mesh.uv = uv;
 		mesh.RecalculateNormals ();
