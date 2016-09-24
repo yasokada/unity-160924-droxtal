@@ -6,8 +6,8 @@ public class CameraRotation : MonoBehaviour {
 	public Transform myTransform;
 
 	private float s_phi_ang = 0.0f;
-	private const float s_dist = 30.0f;
-	private const float kYPos = 1.0f;
+	private const float s_dist = 100.0f;
+	private const float kYPos = 30.0f;
 
 	[Range(-2.0f, 2.0f)]
 	public float rotationSpeed = 0.5f; // degree

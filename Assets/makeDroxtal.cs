@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 
 /*
+ * v0.4 Sep. 25, 2016
  *   - add [kParticleScale]
  * v0.3 Sep. 25, 2016
  *   - add [kAllocationRange]
@@ -35,7 +36,8 @@ Reference
 
 public class makeDroxtal : MonoBehaviour {
 
-	public GameObject my_obj;
+//	public GameObject my_obj;
+	public GameObject droxtalGO;
 	public float radius = 5.0f;
 	public float theta1_rad = 30f * Mathf.Deg2Rad; // zenith angle 1
 	public float theta2_rad = 60f * Mathf.Deg2Rad; // zenith angle 2
@@ -43,7 +45,7 @@ public class makeDroxtal : MonoBehaviour {
 	public const int kNumVerticles = 44; // number of vertices of one droxtal
 	public const int kNumParticles = 1024; // number of droxtals
 	public const float kAllocationRange = 20f; // x,y,z range in which droxtals are placed
-	public const float kParticleScale = 0.5f; // size of droxtal, should be <= 1f
+	public const float kParticleScale = 0.3f; // size of droxtal, should be <= 1f
 
 	int [] triangle_index = new int[kNumVerticles * kNumParticles * 3]; // 3: vertices of a triangle
 	int [] template_tri_index = new int[] {
@@ -182,12 +184,12 @@ public class makeDroxtal : MonoBehaviour {
 		createMeshedDroxtal();
 	}
 
-	void arrayParticles() {
-		for (int idx = 0; idx < kNumVerticles; idx++) {
-			GameObject instance = (GameObject)Instantiate (my_obj);	
-			instance.transform.position = templace_vertices [idx];
-		}
-	}
+//	void arrayParticles() {
+//		for (int idx = 0; idx < kNumVerticles; idx++) {
+//			GameObject instance = (GameObject)Instantiate (my_obj);	
+//			instance.transform.position = templace_vertices [idx];
+//		}
+//	}
 
 	void duplicateParticles() {
 		int pos = 0;
@@ -239,6 +241,12 @@ public class makeDroxtal : MonoBehaviour {
 	}
 	
 	void Update () {
-
+		if (Input.GetMouseButtonDown (0)) {
+			GameObject copied = Object.Instantiate (droxtalGO) as GameObject;
+			float xpos = Random.Range (0, 50f) - 25f;
+			float ypos = Random.Range (0, 50f) - 25f;
+			float zpos = Random.Range (0, 50f) - 25f;
+			copied.transform.Translate (xpos, ypos, zpos);
+		}
 	}
 }
