@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.ObjectModel;
 
 /*
+ *   - add tri_index[]
  * v0.1 Sep. 24, 2016
  *   - add makeMiddles()
  *   - add makeUpperOrLower()
@@ -27,6 +29,73 @@ public class makeDroxtal : MonoBehaviour {
 	public float theta2_rad = 60f * Mathf.Deg2Rad; // zenith angle 2
 
 	public const int kNumVerticles = 24;
+
+	int [] tri_index = new int[] {
+		// top surface
+		0, 1, 5, // ABF
+		1, 2, 5, // BCF
+		2, 4, 5, // CEF
+		2, 3, 4, // CDE
+		// upper sides ---
+		0, 6, 7, // AA'B'
+		6, 7, 11,// A'B'F'
+		// 
+		4, 5, 11,// EFF'
+		4,10, 11,// EE'F'
+		//
+		3, 4, 10,// DEE'
+		3, 9, 10,// DD'E'
+		//
+		0, 1, 6,// ABA'
+		1, 6, 7,// BA'B'
+		//
+		1, 2, 7,// BCB'
+		2, 7, 8,// CB'C'
+		//
+		2, 3, 8,// CDC'
+		3, 8, 9,// DC'D'
+		// middle sides ---
+		6,11,12,// A'F'P
+		11,17,12,// F'UP
+		//
+		10,11,17,// E'F'U
+		10,16,17,// E'TU
+		// 
+		10,9,16,// E'D'T
+		9,15,16,// D'ST
+		//
+		6,7,12,// A'B'P
+		7,12,13,// B'PQ
+		//
+		7, 8,13,// B'C'Q
+		8,14,13,// C'RQ
+		// 
+		8, 9,14,// C'D'R
+		9, 15,14,// D'SR
+		// lower sides ---
+		12,17,18,// PUP'
+		17,18,23,// UP'U'
+		//
+		17,16,23,// UTU'
+		16,22,23,// TT'U'
+		//
+		16,15,22,// TST'
+		15,21,22,// SS'T'
+		//
+		12,13,18,// PQP'
+		13,18,19,// QP'Q'
+		// 
+		13,14,19,// QRQ'
+		14,20,19,// RR'Q'
+		// 
+		14,15,20,// RSR'
+		15,21,20,// SS'R'
+		// bottom surface ---
+		18,19,23,// P'Q'U'
+		19,20,23,// Q'R'U'
+		20,22,23,// R'T'U'
+		20,21,22,// R'S'T'
+	};
 
 	float Lone;
 	float Ltwo;
@@ -84,6 +153,7 @@ public class makeDroxtal : MonoBehaviour {
 	}
 
 	void Start () {
+		Debug.Log (tri_index [0]);
 		Lone = radius * Mathf.Cos (theta1_rad);
 		Ltwo = radius * Mathf.Cos (theta2_rad);
 		calcVertices ();
