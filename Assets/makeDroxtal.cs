@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.ObjectModel;
 
 /*
+ * v0.3 Sep. 25, 2016
+ *   - add [kAllocationRange]
  *   - add duplicateParticles()
  *   - add [triangle_vertices]
  *   - add [triangle_index]
@@ -37,8 +39,9 @@ public class makeDroxtal : MonoBehaviour {
 	public float theta1_rad = 30f * Mathf.Deg2Rad; // zenith angle 1
 	public float theta2_rad = 60f * Mathf.Deg2Rad; // zenith angle 2
 
-	public const int kNumVerticles = 44; // old:24
-	public const int kNumParticles = 8;
+	public const int kNumVerticles = 44;
+	public const int kNumParticles = 1024;
+	public const float kAllocationRange = 20f;
 
 	int [] triangle_index = new int[kNumVerticles * kNumParticles * 3]; // 3: vertices of a triangle
 	int [] template_tri_index = new int[] {
@@ -191,9 +194,9 @@ public class makeDroxtal : MonoBehaviour {
 		}
 		pos = 0;
 		for (int pi = 0; pi < kNumParticles; pi++) { // pi: particle index
-			float shift_x = Random.Range(0,6f) - 3f;
-			float shift_y = Random.Range(0,6f) - 3f;
-			float shift_z = Random.Range(0,6f) - 3f;
+			float shift_x = Random.Range(0, kAllocationRange) - kAllocationRange / 2f;
+			float shift_y = Random.Range(0, kAllocationRange) - kAllocationRange / 2f;
+			float shift_z = Random.Range(0, kAllocationRange) - kAllocationRange / 2f;
 
 			for (int vi = 0; vi < kNumVerticles; vi++) {
 				triangle_vertices [pos].x = templace_vertices [vi].x + shift_x;
