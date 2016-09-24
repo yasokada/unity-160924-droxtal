@@ -98,10 +98,10 @@ public class makeDroxtal : MonoBehaviour {
 		15,14,20,// RSR'
 		15,20,21,// SR'S'
 		// bottom surface ---
-		18,19,23,// P'Q'U'
-		19,20,23,// Q'R'U'
-		20,22,23,// R'T'U'
-		20,21,22,// R'S'T'
+		19,18,23,// P'Q'U'
+		20,19,23,// Q'R'U'
+		21,20,22,// R'S'T'
+		22,20,23,// R'T'U'
 	};
 
 	float Lone;
