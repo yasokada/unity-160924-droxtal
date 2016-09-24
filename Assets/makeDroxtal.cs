@@ -38,23 +38,23 @@ public class makeDroxtal : MonoBehaviour {
 		2, 4, 5, // CEF
 		2, 3, 4, // CDE
 		// upper sides ---
-		0, 6, 7, // AA'B'
-		6, 7, 11,// A'B'F'
+		0, 5, 6, // AA'F
+		5, 11, 6,// A'F'F
 		// 
-		4, 5, 11,// EFF'
+		5, 4, 11,// EFF'
 		4,10, 11,// EE'F'
 		//
-		3, 4, 10,// DEE'
+		4, 3, 10,// DEE'
 		3, 9, 10,// DD'E'
+		// ABA'B'
+		1, 0, 6,// BAA' (not BA'B')
+		1, 6, 7,// BA'B' (not ABA')
 		//
-		0, 1, 6,// ABA'
-		1, 6, 7,// BA'B'
+		2, 1, 8,// CBC' (not BCB')
+		1, 7, 8,// BB'C' (not CB'C')
 		//
-		1, 2, 7,// BCB'
-		2, 7, 8,// CB'C'
-		//
-		2, 3, 8,// CDC'
-		3, 8, 9,// DC'D'
+		3, 2, 9,// DCD' (not CDC')
+		2, 8, 9,// CC'D' (not DC'D')
 		// middle sides ---
 		6,11,12,// A'F'P
 		11,17,12,// F'UP
@@ -190,6 +190,8 @@ public class makeDroxtal : MonoBehaviour {
 		mesh.triangles = tri_index;
 		mesh.normals = normals;
 		mesh.uv = uv;
+		mesh.RecalculateNormals ();
+		mesh.RecalculateBounds ();
 	}
 	
 	void Update () {
